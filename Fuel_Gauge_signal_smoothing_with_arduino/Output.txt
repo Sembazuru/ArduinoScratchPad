@@ -1,0 +1,93 @@
+Actual output after the cut line.
+The update interval is 30000ms (30.000 seconds).
+The first two updates are with A0 connected to +5V
+During the data collection period for the third update, the jumper from A0 to +5V was removed
+The fourth update A0 is floating
+During the data collection period for the fifth update, A0 is jumpered to +3.3V
+The sixth and seventh updates are with A0 connected to +3.3V
+
+------------------------8<------------------------
+Average calculations:
+	Accumulated sum of analogRead() = 254659464
+	Number of analogRead()s = 248934
+	Calculated average = 1022
+
+Number of LEDs to light up = 5
+
+Number of reads per second since last update = 8297.80
+Number of reads per second since start = 8297.80
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 254631852
+	Number of analogRead()s = 248907
+	Calculated average = 1022
+
+Number of LEDs to light up = 5
+
+Number of reads per second since last update = 8296.90
+Number of reads per second since start = 8297.35
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 128993638
+	Number of analogRead()s = 248908
+	Calculated average = 518
+
+Number of LEDs to light up = 3
+
+Number of reads per second since last update = 8296.93
+Number of reads per second since start = 8297.21
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 252
+	Number of analogRead()s = 248899
+	Calculated average = 0
+
+Number of LEDs to light up = 0
+
+Number of reads per second since last update = 8296.63
+Number of reads per second since start = 8297.07
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 102654376
+	Number of analogRead()s = 248906
+	Calculated average = 412
+
+Number of LEDs to light up = 2
+
+Number of reads per second since last update = 8296.87
+Number of reads per second since start = 8297.03
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 170236541
+	Number of analogRead()s = 248907
+	Calculated average = 683
+
+Number of LEDs to light up = 3
+
+Number of reads per second since last update = 8296.90
+Number of reads per second since start = 8297.01
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+Average calculations:
+	Accumulated sum of analogRead() = 170231831
+	Number of analogRead()s = 248909
+	Calculated average = 683
+
+Number of LEDs to light up = 3
+
+Number of reads per second since last update = 8296.97
+Number of reads per second since start = 8297.00
+
+ -*-*-*-*-*-*-*-*-*-*-*-*-*-
+
