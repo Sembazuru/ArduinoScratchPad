@@ -6,6 +6,9 @@
  *
  * By Chris "Sembazuru" Elliott, SembazuruCDE (at) GMail.com
  * 2015-03-18
+ *
+ * Added random positioning for "screen saver" effect. - 2015-03-19
+ *
  */
 
 // Add any requred #include lines here for external libraries.
@@ -50,12 +53,18 @@ void setup()
 {
   // Put your setup code here, to run once:
   chronodot.setSQW(1); // Set square wave pin output of 1Hz
-  pinMode(SQWpin,INPUT_PULLUP); // Don't forget to set the pinmode of the interrupt pin.
-  attachInterrupt(SQWinterrupt,TrigTime,FALLING);
-  
+  pinMode(SQWpin, INPUT_PULLUP); // Don't forget to set the pinmode of the interrupt pin.
+  attachInterrupt(SQWinterrupt, TrigTime, FALLING);
+
   // Initialize TFT display and clear it to a black screen.
   tft.begin();
   tft.fillScreen(ILI9341_BLACK);
+
+  // if analog input pin 0 is unconnected, random analog
+  // noise will cause the call to randomSeed() to generate
+  // different seed numbers each time the sketch runs.
+  // randomSeed() will then shuffle the random function.
+  randomSeed(analogRead(0));
 }
 
 void loop()
@@ -76,14 +85,20 @@ void TrigTime() // ISR to set the triggered flag on an interrupt.
 
 void updateTime()
 {
-  byte x = 6; // Character width plus one separator space
-  byte y = 9; // Character height plus one separator space
+  static byte xPos; // Static datatype so this local variable is remembered when this function is re-entered again to blank the characters printed during this iteration.
+  static byte yPos; // Static datatype so this local variable is remembered when this function is re-entered again to blank the characters printed during this iteration.
+  byte textWidth = 10; // Number of characters wide
+  byte textHeight = 3; // Number of lines high
   byte scaler = 2; // Adjust this to adjust the character size.
-  x *= scaler;
-  y *= scaler;
-  tft.fillRect(x, y, x*10, y*3, ILI9341_BLACK); // Clear just the time text area; 10 characters wide, 3 lines long.
-  
-  tft.setCursor(x, y); // First line.
+  byte x = scaler * 6; // Character width (5) plus one separator space
+  byte y = scaler * 9; // Character height (8) plus one separator space
+  tft.fillRect(xPos, yPos, x * textWidth, y * textHeight, ILI9341_BLACK); // Clear just the time text area
+
+  // Get a new cursor position.
+  xPos = random(x, tft.width() - (x * textWidth + x)); // random number between x (1 character margin) and display width - (width of text block plus 1 character margin).
+  yPos = random(y, tft.height() - (y * textHeight + y)); // random number between y and display height - (height of text block plus 1 character margin).
+
+  tft.setCursor(xPos, yPos); // First line.
   tft.setTextSize(scaler);
   tft.setTextColor(ILI9341_YELLOW);
   tft.print(chronodot.timeDate.year);
@@ -92,10 +107,10 @@ void updateTime()
   tft.print('-');
   printPadded(chronodot.timeDate.day);
 
-  tft.setCursor(x, y*2); // Second line.
+  tft.setCursor(xPos, yPos + y); // Second line.
   tft.print(weekDayName[chronodot.timeDate.weekDay - 1]);
 
-  tft.setCursor(x, y*3); // Third line.
+  tft.setCursor(xPos, yPos + (y * 2)); // Third line.
   printPadded(chronodot.timeDate.hours);
   tft.print(':');
   printPadded(chronodot.timeDate.minutes);
@@ -105,7 +120,7 @@ void updateTime()
 
 void printPadded(int num) // Left-pad single digits with a zero.
 {
-  if(num < 10)
+  if (num < 10)
   {
     tft.print('0');
   }
