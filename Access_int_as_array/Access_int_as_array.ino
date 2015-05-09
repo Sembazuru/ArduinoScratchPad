@@ -9,6 +9,8 @@ void setup()
   while (!Serial) { // Wait for serial port to connect. Needed for Leonardo only.
   }
   delay(1000); // Simply to allow time for the ERW versions of the IDE time to automagically open the Serial Monitor. 1 second chosen arbitrarily.
+  Serial.println(F("Access_int_as_array.ino"));  // so we know what sketch is running
+  Serial.println();
   // put your setup code here, to run once:
   Serial.println(F("Test of using a pointer array and a union to directly access different bytes of a multi-byte datatype."));
   Serial.println();

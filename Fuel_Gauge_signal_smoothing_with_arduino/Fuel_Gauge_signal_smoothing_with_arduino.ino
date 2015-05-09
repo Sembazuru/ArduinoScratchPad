@@ -36,6 +36,8 @@ void setup()
   // Start up the serial port for diagnostic outputs
   Serial.begin(115200); // Change this to whatever your like running your Serial Monitor at.
   while (!Serial); // Wait for serial port to connect. Needed for Leonardo only. I include this for anyone who takes my code and tries to use it on a Leonardo.
+  Serial.println(F("Fuel_Gauge_signal_smoothing_with_arduino.ino"));  // so we know what sketch is running
+  Serial.println();
   digitalWrite(ledIndicator, HIGH);
   indicatorFlag = true;
   // Start the timer for counting averages

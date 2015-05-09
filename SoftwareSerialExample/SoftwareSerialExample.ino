@@ -36,12 +36,15 @@ void setup()
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-
+  Serial.println(F("SoftwareSerialExample.ino"));  // so we know what sketch is running
+  Serial.println();
 
   Serial.println("Goodnight moon!");
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
+  mySerial.println(F("SoftwareSerialExample.ino"));  // so we know what sketch is running
+  mySerial.println();
   mySerial.println("Hello, world?");
 }
 

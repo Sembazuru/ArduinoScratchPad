@@ -19,6 +19,8 @@ void setup()
   while (!Serial) { // Wait for serial port to connect. Needed for Leonardo only.
   }
   delay(1000); // Simply to allow time for the ERW versions of the IDE time to automagically open the Serial Monitor. 1 second chosen arbitrarily.
+  Serial.println(F("TestingSerial_write.ino"));  // so we know what sketch is running
+  Serial.println();
   Serial.println(F("Using Serial.write()"));
   Serial.println(Serial.write(oneByte)); // Wanted output "A1", on UNO got "A1".
   Serial.println(Serial.write(twoByte)); // Wanted output "BC2", on UNO got "C1". Seems Serial.write will only output the LSB of a word (and presumably larger)

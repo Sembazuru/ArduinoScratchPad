@@ -33,6 +33,7 @@ void setup()
 	while (!Serial) { // Wait for serial port to connect. Needed for Leonardo only.
 	}
 	delay(1000); // Simply to allow time for the ERW versions of the IDE time to automagically open the Serial Monitor. 1 second chosen arbitrarily.
+	Serial.println(F("ProgmemCstrings.ino"));  // so we know what sketch is running
 	Serial.println();  // Newlines printed to separate consecutive runs on Serial Monitor
 	Serial.println();
 	Serial.println(F(" ***** Instructions for using the Holy Hand Grenade of Antioch, stored in PROGMEM"));

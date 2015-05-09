@@ -15,6 +15,8 @@ void setup()
   Serial.begin(115200); // Change this to whatever your like running your Serial Monitor at.
   while (!Serial); // Wait for serial port to connect. Needed for Leonardo only.
   delay(1000); // Simply to allow time for the ERW versions of the IDE time to automagically open the Serial Monitor. 1 second chosen arbitrarily.
+  Serial.println(F("sketchName.ino"));  // so we know what sketch is running
+  Serial.println();
 
   // Put your setup code here, to run once:
 
