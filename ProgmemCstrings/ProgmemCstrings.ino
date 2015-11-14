@@ -17,8 +17,10 @@ const char PROGMEM string_3[] = "Four shalt thou not count, neither count thou t
 const char PROGMEM string_4[] = "Five is right out.";
 const char PROGMEM string_5[] = "Once the number three, being the third number, be reached, then lobbest thou thy Holy Hand Grenade of Antioch towards thy foe, who being naughty in My sight, shall snuff it.";
 // Pointer table assignment copied directly from the reference source at nongnu.org w/o thinking.
-// This syntax (PGM_P) still seems to compile and work but is it considered good programming practice?
-PGM_P string_table[] PROGMEM =
+// OBSOLETE AS OF IDEv1.6.x: This syntax (PGM_P) still seems to compile and work but is it considered good programming practice?
+// OBSOLETE AS OF IDEv1.6.x: PGM_P string_table[] PROGMEM =
+// New syntax using "const char* const", verified in Arduino IDE 1.6.6 Note the second "const" keyword.
+const char* const string_table[] PROGMEM =
 {
 	string_1,
 	string_2,
@@ -29,7 +31,7 @@ PGM_P string_table[] PROGMEM =
 
 void setup()
 {
-	Serial.begin(115200);
+	Serial.begin(250000);
 	while (!Serial) { // Wait for serial port to connect. Needed for Leonardo only.
 	}
 	delay(1000); // Simply to allow time for the ERW versions of the IDE time to automagically open the Serial Monitor. 1 second chosen arbitrarily.
@@ -65,18 +67,18 @@ void loop()
 	}
 }
 
-/*
+/* These tests were performed on an Arduino UNO, compiled on IDE v1.6.6
  * This is the recommended method to fetch a string from PROGMEM. It does require having a buffer that is >= the longest string.
  * If one changes one of their strings, then they need to manually verify that the buffer is still long enough.
- * Tests on my UNO show at serial baud 2400 this is (repeatable) 1970044us.
- * Tests on my UNO show at serial baud 4800 this is (repeatable) 986208us.
- * Tests on my UNO show at serial baud 9600 this is (repeatable) 491924us.
- * Tests on my UNO show at serial baud 14400 this is (repeatable) 328736us.
- * Tests on my UNO show at serial baud 19200 this is (repeatable) 245964us.
- * Tests on my UNO show at serial baud 28800 this is (repeatable) 163188us.
- * Tests on my UNO show at serial baud 38400 this is (repeatable) 122980us.
- * Tests on my UNO show at serial baud 57600 this is (repeatable) 80412us.
- * Tests on my UNO show at serial baud 115200 this is (repeatable) 40208us.
+ * Tests at serial baud 2400 this is (repeatable) 1970048us.
+ * Tests at serial baud 4800 this is (repeatable) 986208us.
+ * Tests at serial baud 9600 this is (repeatable) 491924us.
+ * Tests at serial baud 19200 this is (repeatable) 245964us.
+ * Tests at serial baud 38400 this is (repeatable) 122984us.
+ * Tests at serial baud 57600 this is (repeatable) 80412us.
+ * Tests at serial baud 115200 this is (repeatable) 40208us.
+ * Tests at serial baud 230400 this is (repeatable) 21288us.
+ * Tests at serial baud 250000 this is (repeatable) 18920us.
  */
 void recommendedStringReferencing()
 {
@@ -96,15 +98,15 @@ void recommendedStringReferencing()
  * character?
  *
  * This has the benefit of making code maintenance easier because one doesn't need to verify that any changed strings won't overflow a buffer character array.
- * Tests on my UNO show at serial baud 2400 this is (repeatable) 1970044us, making it within 4us (minimum micros() resolution) as strcpy_p().
- * Tests on my UNO show at serial baud 4800 this is (repeatable) 986208us, making it within 4us as strcpy_p().
- * Tests on my UNO show at serial baud 9600 this is (repeatable) 491920us, making it between 4us and 8us faster than strcpy_p().
- * Tests on my UNO show at serial baud 14400 this is (repeatable) 328736us, making it within 4us as strcpy_p().
- * Tests on my UNO show at serial baud 19200 this is (repeatable) 245960us, making it between 4us and 8us faster than strcpy_p().
- * Tests on my UNO show at serial baud 28800 this is (repeatable) 163188us, making it between 4us and 8us faster than strcpy_p().
- * Tests on my UNO show at serial baud 38400 this is (repeatable) 122980us, making it within 4us as strcpy_p().
- * Tests on my UNO show at serial baud 57600 this is (repeatable) 80412us, making it within 4us as strcpy_p().
- * Tests on my UNO show at serial baud 115200 this is (repeatable) 40208us, making it within 4us as strcpy_p().
+ * Tests on my UNO show at serial baud 2400 this is (repeatable) 1970044us, making it between 4us (minimum micros() resolution) and 8us faster than strcpy_p().
+ * Tests at serial baud 4800 this is (repeatable) 986208us, making it within 4us as strcpy_p().
+ * Tests at serial baud 9600 this is (repeatable) 491924us, making it within 4us as strcpy_p().
+ * Tests at serial baud 19200 this is (repeatable) 245964us, making it within 4us as strcpy_p().
+ * Tests at serial baud 38400 this is (repeatable) 122984us, making it within 4us as strcpy_p().
+ * Tests at serial baud 57600 this is (repeatable) 80412us, making it within 4us as strcpy_p().
+ * Tests at serial baud 115200 this is (repeatable) 40208us, making it within 4us as strcpy_p().
+ * Tests at serial baud 230400 this is (repeatable) 21288us, making it within 4us as strcpy_p().
+ * Tests at serial baud 250000 this is (repeatable) 18916us, making it between 4us and 8us faster than strcpy_p().
  *
  * I wonder if it is the same method strcpy_P() uses since the timing is so similar.
  * I provide this sketch as a learning reference.
