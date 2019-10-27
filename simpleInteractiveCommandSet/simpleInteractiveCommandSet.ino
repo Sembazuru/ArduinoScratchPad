@@ -6,6 +6,8 @@
   Author: Tom Clupper
   License: None
   Revision: 10/22/2019 (ver 1.0)
+
+  This is Example#3 from the class found at this link: https://youtu.be/MEm4goe0QIw
 */
 
 // vvvvvvvvvvvvvvvvvvvvvvvvv  Core variables  vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
